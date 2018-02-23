@@ -1,0 +1,15 @@
+{
+  "name": "plot-generator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "generate a plot for your story",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Anton Solomonik",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}

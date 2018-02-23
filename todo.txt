@@ -1,0 +1,35 @@
+todo:
+
+x finish reading the "how heroku works" overview
+x finish the nodejs getting started
+x the process model
+x procfile/process types
+
+- figure out postgres - how it works/basic commands
+- put sample data in the database, similar to what app needs
+- set up node and postgres in sample app
+
+- figure out how to insert/do other crud in postgres from node
+
+
+
+- set up the postgres database thing
+
+
+-----
+
+- maybe instead
+
+- figure out google docs api to grab csv file
+
+
+get /generate
+	pulls up csv doc
+	parses csv doc
+	next
+
+	generate/<type>
+		returns text from random one of specific type
+
+	else
+		returns text comprised of random one from each type concat together
