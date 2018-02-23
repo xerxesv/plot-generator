@@ -1,9 +1,11 @@
-const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 2000;
+const express = require('express');
+const https = require('https');
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
+const app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
   // .set('views', path.join(__dirname, 'views'))
   // .set('view engine', 'ejs')
   // .get('/', (req, res) => res.render('pages/index'))
@@ -15,7 +17,14 @@ express()
 	//       result += i + ' ';
 	//   response.send(result);
 	// })
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+app.get('/generate', (req, res) => {
+	 res.send('Birds home page');
+});
+app.get('/generate/:type', (req, res) => {
+	res.send('generate ' + req.params.type)
+});
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 /*
 path.join():
