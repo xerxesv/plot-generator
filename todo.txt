@@ -33,3 +33,11 @@ get /generate
 
 	else
 		returns text comprised of random one from each type concat together
+
+-----
+To research (like ever):
+
+- node/express error handling 
+https://expressjs.com/en/guide/error-handling.html
+
+- readable streams

@@ -5,11 +5,13 @@
   "description": "generate a plot for your story",
   "main": "index.js",
   "scripts": {
+    "start": "CSV_URL=https://docs.google.com/spreadsheets/d/e/2PACX-1vQIKxVZv5YdSYEt53Vae8WYewNQThjht0JZJ0hD2k-Xt9zB8tfaXxxaONWUMvvvGGJS4F4VFMPJeyy_/pub?output=csv node index.js",
     "test": "test"
   },
   "author": "Anton Solomonik",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "papaparse": "^4.3.7"
   }
 }
