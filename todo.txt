@@ -1,41 +1,22 @@
-todo:
+- do front end
+	- install photoshop on this mac (?)
+	- slot machine background
 
-x finish reading the "how heroku works" overview
-x finish the nodejs getting started
-x the process model
-x procfile/process types
-
-- figure out postgres - how it works/basic commands
-- put sample data in the database, similar to what app needs
-- set up node and postgres in sample app
-
-- figure out how to insert/do other crud in postgres from node
+- deploy somewhere other than heroku (maybe nanobox.io)
 
 
+- serve front end following o embed (?) protocol from server? 
+	- or: just include the frontend code as html in squarespace (no.)
 
-- set up the postgres database thing
-
-
------
-
-- maybe instead
-
-- figure out google docs api to grab csv file
+- deploy somewhere other than heroku
 
 
-get /generate
-	pulls up csv doc
-	parses csv doc
-	next
 
-	generate/<type>
-		returns text from random one of specific type
+----
+To do or research later:
 
-	else
-		returns text comprised of random one from each type concat together
 
------
-To research (like ever):
+- authentication of google csv file with open auth
 
 - node/express error handling 
 https://expressjs.com/en/guide/error-handling.html
