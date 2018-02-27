@@ -7,7 +7,46 @@ const Papa = require('papaparse');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
+app
+	.use(express.static(path.join(__dirname, 'public')))
+	.set('views', path.join(__dirname, 'views'))
+	.set('view engine', 'ejs');
+
+
+// index route
+app.get('/', (req, res, next) => {
+	const CSV_URL = process.env.CSV_URL;
+	https.get( CSV_URL, (response) => {
+		let fields = [];
+		Papa.parse( response, {
+			encoding:'utf8',
+			fastMode: true,
+			step: (row, parser) => {
+				fields = row.data[0];
+				parser.abort();
+			},
+			complete: () => {
+				console.log('all done');
+				// console.log(fields);
+				res.data = {
+					fields: fields
+				};
+				next();
+			},
+			error: (err) => {
+				console.log('fields parser had an error');
+				console.log(err);
+				next(err);
+			}
+		})
+	})
+	.on('error', (err) => {
+		next(err);
+	});	
+}, (req, res, next) => {
+	
+	res.render('index2', res.data);
+})
 
 // fields route
 app.get('/fields', (req, res, next) => {
@@ -101,7 +140,7 @@ app.get('/generate/:type', (req, res, next) => {
 		res.send(res.data);
 	}
 });
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
 
 // custom error handler middleware whoa 
 app.use( (err, req, res, next) => {
@@ -114,6 +153,9 @@ app.use( (err, req, res, next) => {
   res.status(httpStatusCode);
   res.send(message);
 })
+
+
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 /*

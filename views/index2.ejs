@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Plot generator</title>
+    <link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/plot-generator2.css" />
+    <script>
+      var loading = false;
+      var plot = {};
+
+      function requestPlot () {        
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'generate');
+        loading = true;
+
+        xhr.onload = function () {
+          loading = false;
+          if (xhr.status === 200) {
+            var response;
+            try {              
+              response = JSON.parse(xhr.responseText);
+            }
+            catch (error) {
+              handleError( new Error('bad json') );
+              return;
+            }
+            console.log( response );
+            plot = response;
+          }
+          else {           
+           handleError(new Error('bad xhr request. status: ' + xhr.status));
+          }
+        }
+        xhr.send();
+      }
+
+      function fillPlotFields () {
+        for (var field in plot) {
+          
+        }
+      }
+
+      function handleError (err) {
+        console.log(err.message || 'I am error');
+        console.log(err);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="outerContainer">
+      <div class="buttons">
+        <button class="generateButton" onClick="requestPlot()">WHOOAAAA</button>
+      </div>
+      <div class="innerContainer">
+        <% fields.forEach( function(fieldName) { %>
+          <div class="plotElement" id="plotElement<%= fieldName %>">
+            <div class="fieldTitle">
+              <%= fieldName %>
+            </div>
+            <div id="<%= fieldName %>" class="fieldText">
+              ??
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </body>
+</html>

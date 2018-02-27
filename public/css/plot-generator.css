@@ -1,0 +1,54 @@
+button {
+  border-radius: 2px;
+  background-color: #757575;
+  color:#fff;
+
+  padding: 5px;
+}
+.generateButton {
+  background-color:#ed3c50;
+}
+.outerContainer {
+  width:100%;
+  max-width:100%;
+  display:flex;
+  
+  justify-content:center;
+
+  overflow:hidden;
+
+  background-color:#e1e1e1;
+}
+
+.innerContainer {
+  height:;
+  display:flex;
+  justify-content:center;
+  overflow:hidden;
+  /*height:300px;*/
+}
+
+.plotElement {
+  min-width:200px;
+  width:200px;
+  max-width: 200px;
+  border: solid 2px #ed3c50;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+  padding:20px;
+
+}
+
+.fieldTitle {
+  text-align:center;
+}
+
+.fieldText {
+  max-height:250px;
+  overflow-y:auto;
+
+  font-family:'PT Mono', monospace;
+}
