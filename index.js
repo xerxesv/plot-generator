@@ -9,6 +9,38 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// fields route
+app.get('/fields', (req, res, next) => {
+	const CSV_URL = process.env.CSV_URL;
+	https.get( CSV_URL, (response) => {
+		let fields = [];
+		Papa.parse( response, {
+			encoding:'utf8',
+			fastMode: true,
+			step: (row, parser) => {
+				fields = row.data[0];
+				parser.abort();
+			},
+			complete: () => {
+				console.log('all done');
+				res.data = {
+					fields: fields
+				};
+				next();
+			},
+			error: (err) => {
+				console.log('fields parser had an error');
+				console.log(err);
+				next(err);
+			}
+		})
+	})
+	.on('error', (err) => {
+		next(err);
+	});
+}, (req, res, next) => {
+	res.send(res.data);
+})
 // generate route
 app.use('/generate', (req, res, next) => {
 	const CSV_URL = process.env.CSV_URL;
