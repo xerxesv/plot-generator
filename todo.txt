@@ -3,13 +3,10 @@
 	- some kind of basic error handling/dealing if it cant load the fields
 	- clicking on a single box loads new data for just that field ( error handling above can also use this to deal with individual fields not loading, use for loop instead of .each() probably)
 
-- deploy somewhere other than heroku (maybe nanobox.io)
+x deploy somewhere other than heroku (maybe nanobox.io)
 
+- endpoint following oembed protocol
 
-- serve front end following o embed (?) protocol from server? 
-	- or: just include the frontend code as html in squarespace (no.)
-
-- deploy somewhere other than heroku
 
 
 

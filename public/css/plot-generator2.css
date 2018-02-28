@@ -30,10 +30,18 @@ button {
   padding:20px;
 
 }
-
+/*
+@media (max-width:1000px) {
+  .outerContainer {
+    margin:auto;
+    width:90%;
+  }
+}
+*/
 @media (max-width:600px) {
   .outerContainer {
     margin:0;
+    padding: 10px 0;
     width:100%;
   }
 }
