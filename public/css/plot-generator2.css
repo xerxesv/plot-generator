@@ -96,10 +96,13 @@ button {
 
 .fieldText .inner {
   height: 100%;
-  width: 100%;  
+  width: 100%;
+  text-align:left;
+  padding:10px;  
 }
 .fieldText .inner.placeholder {
+  text-align:center;
   font-size: 80px;
   font-family: 'Lato', sans-serif;
-  line-height: 210px;  
+  line-height: 200px;  
 }

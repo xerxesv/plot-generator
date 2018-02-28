@@ -74,7 +74,7 @@ $.Velocity.RegisterUI("callout.twirl", {
         animatePlotFields();
 
         function animatePlotFields () {
-          // total hack - assumes xhr response is available by the time animation is done or it restarts
+          // hack - assumes xhr response is available by the time animation is done or it restarts
           $('.plotElement').each( function (index) {
             var $fieldText = $(this).find('.fieldText');
             var delayPerField = index * 200;

@@ -1,6 +1,7 @@
 - do front end
-	- install photoshop on this mac (?)
-	- slot machine background
+	- design/visuals
+	- some kind of basic error handling/dealing if it cant load the fields
+	- clicking on a single box loads new data for just that field ( error handling above can also use this to deal with individual fields not loading, use for loop instead of .each() probably)
 
 - deploy somewhere other than heroku (maybe nanobox.io)
 
