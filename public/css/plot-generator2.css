@@ -1,3 +1,7 @@
+/*
+color schemes..?
+https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
+*/
 button {
   cursor:pointer;
   border:0;
@@ -45,17 +49,18 @@ button {
 
   width:100%;
   padding:20px 20px 0px 20px;
-  background-color:#e1e1e1;
+  /*background-color:#e1e1e1;*/
+  background-color: #EAF2E3;
 
 }
 
 .plotElement {
-  background-color:#fff;
+  background-color:#9AF0EB;
   min-width:200px;
   width:200px;
   max-width: 200px;
   height:300px;
-  border: solid 2px #ed3c50;
+ /* border: solid 2px #9AF0EB;*/ /*EAF2E3*/ /*#d8edee*/ /*ed3c50*/
 
   margin-bottom:40px;
   margin-right:40px;
@@ -65,7 +70,8 @@ button {
   flex-direction:column;
   justify-content:space-between;
 
-  padding:10px;
+  /*padding:10px;*/
+  padding:0;  
 }
 
 .plotElement:last-child {
@@ -73,14 +79,27 @@ button {
 }
 
 .fieldTitle {
+  background-color: #fff;
   text-align:center;
+  padding:10px;
 }
 
 .fieldText {
-  min-height:250px;
-  height:250px;
-  max-height:250px;
+  background-color: #fff;
+  min-height:235px; /*250px*/
+  height:235px;
+  max-height:235px;
   overflow-y:auto;
 
   font-family:'PT Mono', monospace;
+}
+
+.fieldText .inner {
+  height: 100%;
+  width: 100%;  
+}
+.fieldText .inner.placeholder {
+  font-size: 80px;
+  font-family: 'Lato', sans-serif;
+  line-height: 210px;  
 }

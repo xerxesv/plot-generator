@@ -1,3 +1,11 @@
+   [ { setting: '',
+       protagonist: '',
+       'inciting incident': '',
+       'rising action': '',
+       climax: 'a programming edge case',
+       'falling action': '',
+       'final image': '' } ],
+       
    [ { setting: 'prussian empire',
        protagonist: 'an average joe',
        'inciting incident': 'someone wins something',
