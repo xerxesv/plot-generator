@@ -2,7 +2,7 @@ require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 2000;
 const express = require('express');
-var cors = require('cors');
+const cors = require('cors');
 const https = require('https');
 const Papa = require('papaparse');
 
