@@ -5,6 +5,8 @@ const express = require('express');
 const https = require('https');
 const Papa = require('papaparse');
 
+const getFields = require('./services/get-fields');
+
 const app = express();
 
 app
@@ -14,72 +16,33 @@ app
 
 
 // index route
-app.get('/', (req, res, next) => {
-	const CSV_URL = process.env.CSV_URL;
-	https.get( CSV_URL, (response) => {
-		let fields = [];
-		Papa.parse( response, {
-			encoding:'utf8',
-			fastMode: true,
-			step: (row, parser) => {
-				fields = row.data[0];
-				parser.abort();
-			},
-			complete: () => {
-				console.log('all done');
-				// console.log(fields);
-				res.data = {
-					fields: fields
-				};
-				next();
-			},
-			error: (err) => {
-				console.log('fields parser had an error');
-				console.log(err);
-				next(err);
-			}
-		})
-	})
-	.on('error', (err) => {
-		next(err);
-	});	
-}, (req, res, next) => {
+app.get('/', getFields, (req, res, next) => {
 	
 	res.render('index2', res.data);
-})
+});
+
+// embed route
+app.get('/embed', getFields, (req, res, next) => {
+/*
+sample request
+localhost:2000/embed?url=/&format=json
+*/	
+
+	res.render('generator', res.data, (err, html) => {
+		var maybejson = {
+			html: html
+		};
+		console.log('sending embed');
+		res.send(html);
+	});
+});
 
 // fields route
-app.get('/fields', (req, res, next) => {
-	const CSV_URL = process.env.CSV_URL;
-	https.get( CSV_URL, (response) => {
-		let fields = [];
-		Papa.parse( response, {
-			encoding:'utf8',
-			fastMode: true,
-			step: (row, parser) => {
-				fields = row.data[0];
-				parser.abort();
-			},
-			complete: () => {
-				console.log('all done');
-				res.data = {
-					fields: fields
-				};
-				next();
-			},
-			error: (err) => {
-				console.log('fields parser had an error');
-				console.log(err);
-				next(err);
-			}
-		})
-	})
-	.on('error', (err) => {
-		next(err);
-	});
-}, (req, res, next) => {
+app.get('/fields', getFields, (req, res, next) => {
 	res.send(res.data);
-})
+});
+
+
 // generate route
 app.use('/generate', (req, res, next) => {
 	const CSV_URL = process.env.CSV_URL;
