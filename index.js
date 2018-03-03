@@ -57,7 +57,7 @@ app.use('/generate', (req, res, next) => {
 				let rowObject = row.data && row.data[0];
 				for (const field in rowObject) {
 					if ( rowObject[ field ] ) {
-						data[ field ] = data[ field ] ? data[ field ].concat( rowObject[ field ] ) : [ rowObject[ field ] ];
+						data[ field ] = (data[field] || []).concat( rowObject[ field ] );
 					}
 				}
 			},
