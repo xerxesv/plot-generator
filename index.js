@@ -2,6 +2,7 @@ require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 2000;
 const express = require('express');
+var cors = require('cors');
 const https = require('https');
 const Papa = require('papaparse');
 
@@ -10,6 +11,7 @@ const getFields = require('./services/get-fields');
 const app = express();
 
 app
+	.use(cors())
 	.use(express.static(path.join(__dirname, 'public')))
 	.set('views', path.join(__dirname, 'views'))
 	.set('view engine', 'ejs');
