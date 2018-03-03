@@ -19,6 +19,6 @@
   },
   "now": {
     "alias":"plot-generator",
-    "dotenv":true
+    "dotenv":".env.production"
   }
 }

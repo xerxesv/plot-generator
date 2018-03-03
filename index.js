@@ -20,15 +20,11 @@ app
 // index route
 app.get('/', getFields, (req, res, next) => {
 	
-	res.render('index2', res.data);
+	res.render('index', res.data);
 });
 
 // embed route
 app.get('/embed', getFields, (req, res, next) => {
-/*
-sample request
-localhost:2000/embed?url=/&format=json
-*/	
 
 	res.render('generator', res.data, (err, html) => {
 		var maybejson = {
