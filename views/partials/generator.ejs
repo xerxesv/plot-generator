@@ -1,12 +1,16 @@
 <div class="plotGenerator">
   <div class="buttons">
-    <button id="generateButton" class="button generateButton" onClick="requestAll()"></button>
+<!--     <button id="generateButton" class="button generateButton" onClick="requestAll()"></button> -->
+<button class="button shiny" onClick="requestAll()">
+  <div class="circle">
+  </div>
+</button>
   </div>
   <div class="innerContainer">
     <% fields.forEach( function(fieldName) { %>
       <div class="plotElement" id="plotElement<%=fieldName.replace(/\s/g, '_')%>">
         <div class="fieldTitle">
-          <%= fieldName %>
+          <h4><%= fieldName %></h4>
         </div>
         <div onClick="requestOne('<%=fieldName%>')" id="<%=fieldName.replace(/\s/g, '_')%>" class="fieldText">
           <div class="inner placeholder">??</div>

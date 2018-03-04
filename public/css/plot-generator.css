@@ -8,19 +8,74 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
 .plotGenerator button {
   cursor:pointer;
   border:0;
-  border-radius: 5px;
-  color:#fff;
-  padding: 10px;
-  font-weight:900;
 }
 
-.button {
-  background-color: #757575;
-}
+
 .button.generateButton {
+  color:#fff;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight:900;  
   background-color:#ed3c50;
 }
 
+.button.shiny {
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background: radial-gradient(
+   circle at top,
+   white,
+   yellow,
+   orange,
+   red,
+   darkred,
+   maroon,
+
+   black
+  );
+  /*indigo*/  
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 2px solid black;
+  box-shadow: 
+    -2px 2px 4px #0000008a, 
+    2px 2px 4px #0000008a, 
+    -2px 4px 6px #0000ff7d, 
+    2px 4px 6px #0000ff7d;
+}
+.button.shiny .circle {
+  display:inline-block;
+  left:-1px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:linear-gradient(
+    to bottom,
+    #fd9801 -5px,
+    red,
+    #d80505 
+  );
+  /*background-color:red;*/
+
+/*  box-shadow: 
+    0 -2px 0 3px #c91919 inset, 
+    0 5px 5px rgba(65, 8, 8, 0.17), 
+    0 15px rgba(255, 255, 255, 0.25) inset*/
+  box-shadow: 
+    0 2px 2px darkblue;
+
+}
+/*
+.button.shiny .circle .circleInner {
+  display:inline-block;
+  left:-2px;
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  background-color: orange;
+}
+*/
 .buttons {
   width:100%;
   text-align: center;
@@ -37,7 +92,9 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
   width:100%;
   padding:20px 20px 0px 20px;
   /*background-color:#e1e1e1;*/
-  background-color: #EAF2E3;
+  /*background-color: #EAF2E3;*/
+  background-color: transparent;
+
 
 }
 
@@ -50,8 +107,8 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
  /* border: solid 2px #9AF0EB;*/ /*EAF2E3*/ /*#d8edee*/ /*ed3c50*/
 
   margin-bottom:40px;
-  margin-right:40px;
-
+  margin-left:20px;
+  margin-right:20px;
 
   display:flex;
   flex-direction:column;
@@ -61,21 +118,18 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
   padding:0;  
 }
 
-.plotElement:last-child {
-  margin-right:0;
-}
 
 .fieldTitle {
   background-color: #fff;
   text-align:center;
-  padding:10px;
+  /*padding:10px;*/
 }
 
 .fieldText {
   background-color: #fff;
-  min-height:235px; /*250px*/
-  height:235px;
-  max-height:235px;
+  min-height:215px; /*250px*/
+  height:215px;
+  max-height:215px;
   overflow-y:auto;
 
   cursor:pointer;

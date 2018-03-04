@@ -13,7 +13,7 @@ const getFields = function (req, res, next) {
         parser.abort();
       },
       complete: () => {
-        console.log('all done');
+        // console.log('all done');
         // console.log(fields);
         res.data = {
           fields: fields
