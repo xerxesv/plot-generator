@@ -1,6 +1,7 @@
 require('dotenv').config();
 const path = require('path');
 const PORT = process.env.PORT || 2000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
 const express = require('express');
 const cors = require('cors');
 const https = require('https');
@@ -21,8 +22,6 @@ app
 app.get('/', getFields, (req, res, next) => {
 	let data = res.data;
 	data.PUBLIC_URL = process.env.PUBLIC_URL;
-	console.log('data public url');
-	console.log(data.PUBLIC_URL);
 	res.render('index', data);
 });
 
@@ -30,13 +29,15 @@ app.get('/', getFields, (req, res, next) => {
 app.get('/embed', getFields, (req, res, next) => {
 	let data = res.data;
 	data.PUBLIC_URL = process.env.PUBLIC_URL;
-	
+
 	res.render('embed', res.data, (err, html) => {
 		var maybejson = {
 			html: html
 		};
-		console.log('sending embed');
-		console.log(html);
+		if (NODE_ENV==='development') {
+			console.log('sending embed');
+			console.log(html);			
+		}
 		res.send(html);
 	});
 });
