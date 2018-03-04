@@ -1,0 +1,17 @@
+<div class="buttons">
+  <button id="generateButton" class="generateButton" onClick="requestAll()">WHOOAAAA</button>
+</div>
+<div class="innerContainer">
+  <% fields.forEach( function(fieldName) { %>
+    <div class="plotElement" id="plotElement<%=fieldName.replace(/\s/g, '_')%>">
+      <div class="fieldTitle">
+        <%= fieldName %>
+      </div>
+      <div onClick="requestOne('<%=fieldName%>')" id="<%=fieldName.replace(/\s/g, '_')%>" class="fieldText">
+        <div class="inner placeholder">??</div>
+      </div>
+    </div>
+  <% }); %>
+</div>
+
+

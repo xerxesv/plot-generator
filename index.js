@@ -19,18 +19,22 @@ app
 
 // index route
 app.get('/', getFields, (req, res, next) => {
-	
-	res.render('index', res.data);
+	let data = res.data;
+	data.PUBLIC_URL = process.env.PUBLIC_URL;
+	console.log('data public url');
+	console.log(data.PUBLIC_URL);
+	res.render('index', data);
 });
 
 // embed route
 app.get('/embed', getFields, (req, res, next) => {
 
-	res.render('generator', res.data, (err, html) => {
+	res.render('embed', res.data, (err, html) => {
 		var maybejson = {
 			html: html
 		};
 		console.log('sending embed');
+		console.log(html);
 		res.send(html);
 	});
 });
@@ -86,7 +90,7 @@ app.get('/generate', (req, res) => {
 });
 
 app.get('/generate/:type', (req, res, next) => {
-	const type = req.params.type.replace('_', ' ');
+	const type = req.params.type.replace(/_/g, ' ');
 	let random = null;
 	if (!res.data[ type ]) {
 		let err = new Error('no such type');
