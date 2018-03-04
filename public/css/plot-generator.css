@@ -9,11 +9,16 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
   cursor:pointer;
   border:0;
   border-radius: 5px;
-  background-color: #757575;
   color:#fff;
   padding: 10px;
-
   font-weight:900;
+}
+
+.button {
+  background-color: #757575;
+}
+.button.generateButton {
+  background-color:#ed3c50;
 }
 
 .buttons {
@@ -21,9 +26,6 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
   text-align: center;
   display:inline-block;
   margin-bottom:20px;
-}
-.generateButton {
-  background-color:#ed3c50;
 }
 
 .innerContainer {

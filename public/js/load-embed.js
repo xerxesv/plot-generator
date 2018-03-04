@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
      console.log('bad xhr request. status: ' + xhr.status);           
     }
 
-    console.log( html );
+    // console.log( html );
     // html = '<p>Just some <span>text</span> here</p>';
     child.innerHTML = html;
     child = child.firstChild;
