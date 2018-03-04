@@ -134,30 +134,30 @@ function requestOne (fieldName, attempts) {
     $elementToAnimate
       .children('.inner')
       .velocity({opacity:0}, {
-        delay: 2000,
-        duration:800,
+        delay: 500,
+        duration:500
         // queue:false,
-        complete:function (elements) {
+
+      })
+      .velocity('reverse', {
+        delay:1900,
+        duration:100,
+        begin:function (elements) {
           var fieldText = oneField[fieldName];
           attempts++;
           if (fieldText) {
             $(elements).text(fieldText).removeClass('placeholder')
           }
           else {
-          	if (attempts <= maxAttempts) {
-          		$(elements).text('').removeClass('placeholder');
-          		animateOne( fieldName, attempts);
-          	}
-          	else {
-	          	$(elements).text('??').addClass('placeholder')
-          	}
+            if (attempts <= maxAttempts) {
+              $(elements).text('').removeClass('placeholder');
+              animateOne( fieldName, attempts);
+            }
+            else {
+              $(elements).text('??').addClass('placeholder')
+            }
           }
         }
-      })
-      .velocity('reverse', {
-        delay:100,
-        duration:100,
-        complete:null
       })     
   }
 
