@@ -63,10 +63,10 @@ function requestAll (attempts) {
           complete:function (elements) {
             var fieldText = newPlot[fieldName];
             if (fieldText) {
-              $(elements).text(fieldText).removeClass('placeholder')
+              $(elements).removeClass('placeholder').children('.text').text(fieldText)
             }
             else {
-              $(elements).text('').removeClass('placeholder')
+              $(elements).text('').removeClass('placeholder').children('.text').text('')
             	requestOne( fieldName, attempts );
             }
           }
@@ -143,14 +143,15 @@ function requestOne (fieldName, attempts) {
         delay:1900,
         duration:100,
         begin:function (elements) {
+          // var $text = $(elements).children('text');
           var fieldText = oneField[fieldName];
           attempts++;
           if (fieldText) {
-            $(elements).text(fieldText).removeClass('placeholder')
+            $(elements).removeClass('placeholder').children('.text').text(fieldText);
           }
           else {
             if (attempts <= maxAttempts) {
-              $(elements).text('').removeClass('placeholder');
+              $(elements).removeClass('placeholder').children('.text').text('');
               animateOne( fieldName, attempts);
             }
             else {
