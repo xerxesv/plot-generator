@@ -42,6 +42,23 @@ app.get('/embed', getFields, (req, res, next) => {
 	});
 });
 
+
+app.get('/generatorHtml', getFields, (req, res, next) => {
+	let data = res.data;
+	data.PUBLIC_URL = process.env.PUBLIC_URL;
+
+	res.render('partials/generator', res.data, (err, html) => {
+		var maybejson = {
+			html: html
+		};
+		if (NODE_ENV==='development') {
+			console.log('sending embed');
+			console.log(html);			
+		}
+		res.send(html);
+	});
+});
+
 // fields route
 app.get('/fields', getFields, (req, res, next) => {
 	res.send(res.data);
