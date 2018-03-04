@@ -2,7 +2,10 @@
 color schemes..?
 https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
 */
-button {
+/*.plotGenerator {
+  font-family: 'Lato', sans-serif;
+}*/
+.plotGenerator button {
   cursor:pointer;
   border:0;
   border-radius: 5px;

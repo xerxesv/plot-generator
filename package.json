@@ -16,9 +16,5 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "papaparse": "^4.3.7"
-  },
-  "now": {
-    "alias":"plot-generator",
-    "dotenv":".env.production"
   }
 }
