@@ -1,10 +1,11 @@
 <div class="plotGenerator">
   <div class="buttons">
-<!--     <button id="generateButton" class="button generateButton" onClick="requestAll()"></button> -->
-<button class="button shiny" onClick="requestAll()">
-  <div class="circle">
-  </div>
-</button>
+    <div class="button-shadow">
+      <button class="button shiny animate-click" onClick="requestAll()">
+        <div class="circle">
+        </div>
+      </button>
+    </div>
   </div>
   <div class="innerContainer">
     <% fields.forEach( function(fieldName) { %>

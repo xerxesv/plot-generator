@@ -19,10 +19,24 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
   background-color:#ed3c50;
 }
 
-.button.shiny {
+
+.button-shadow, .button.shiny {
+  display:inline-block;
   width:50px;
   height:50px;
   border-radius:50%;
+
+}
+
+.button-shadow {
+  box-shadow: 
+    -2px 2px 4px #0000008a, 
+    2px 2px 4px #0000008a, 
+    -2px 4px 6px #0000ff7d, 
+    2px 4px 6px #0000ff7d;
+}
+
+.button.shiny {
   background: radial-gradient(
    circle at top,
    white,
@@ -38,11 +52,11 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 2px solid black;
-  box-shadow: 
-    -2px 2px 4px #0000008a, 
-    2px 2px 4px #0000008a, 
-    -2px 4px 6px #0000ff7d, 
-    2px 4px 6px #0000ff7d;
+
+}
+.button.shiny.animate-click:active {
+  transform: translateY(3px);
+  box-shadow: 0 -2px 6px #91fbd4;
 }
 .button.shiny .circle {
   display:inline-block;
@@ -58,13 +72,17 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
   );
   /*background-color:red;*/
 
-/*  box-shadow: 
+  /*box-shadow: 
     0 -2px 0 3px #c91919 inset, 
     0 5px 5px rgba(65, 8, 8, 0.17), 
     0 15px rgba(255, 255, 255, 0.25) inset*/
   box-shadow: 
     0 2px 2px darkblue;
 
+}
+.button.shiny:focus {
+  outline:none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, .5);
 }
 /*
 .button.shiny .circle .circleInner {

@@ -30,7 +30,7 @@ function requestAll (attempts) {
     // stop animating plot fields one by one
     // set field text to the appropriate key in plot (or placeholder)
     // bad requests/bad json will just use the old value
-    console.log( newPlot );          
+    // console.log( newPlot );          
   }
 
   xhr.send();
@@ -113,12 +113,12 @@ function requestOne (fieldName, attempts) {
     // stop animating plot fields one by one
     // set field text to the appropriate key in plot (or placeholder)
     // bad requests/bad json will just use the old value
-    console.log( oneField );          
+    // console.log( oneField );          
   }
 
   xhr.send();
 
-  console.log('requestOne attempts: ', attempts);
+  // console.log('requestOne attempts: ', attempts);
   animateOne();
 
   function animateOne () {
