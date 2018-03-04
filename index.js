@@ -28,7 +28,9 @@ app.get('/', getFields, (req, res, next) => {
 
 // embed route
 app.get('/embed', getFields, (req, res, next) => {
-
+	let data = res.data;
+	data.PUBLIC_URL = process.env.PUBLIC_URL;
+	
 	res.render('embed', res.data, (err, html) => {
 		var maybejson = {
 			html: html
