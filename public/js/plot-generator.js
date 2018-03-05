@@ -155,7 +155,7 @@ function requestOne (fieldName, attempts) {
               animateOne( fieldName, attempts);
             }
             else {
-              $(elements).text('??').addClass('placeholder')
+              $(elements).addClass('placeholder').children('.text').text('??');
             }
           }
         }

@@ -171,3 +171,6 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
 .fieldText .text {
   cursor: auto;
 }
+.placeholder .text {
+  cursor: inherit;
+}
