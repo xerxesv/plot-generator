@@ -60,9 +60,9 @@ https://coolors.co/ed3c50-eaf2e3-9af0eb-f2e863-f2cd60
 }
 .button.shiny .circle {
   display:inline-block;
-  left:-1px;
-  width:38px;
-  height:38px;
+  left:-2px;
+  width:37px;
+  height:37px;
   border-radius:50%;
   background:linear-gradient(
     to bottom,
