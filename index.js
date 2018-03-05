@@ -73,11 +73,16 @@ app.use('/generate', (req, res, next) => {
 		Papa.parse( response, {
 			encoding:'utf8',
 			header:true,
-			fastMode:true,
+			// do not use fastMode
+			// fastMode: true
 			step: (row) => {
 				// no way to avoid going thru each row to get rid of empty cells
 				let rowObject = row.data && row.data[0];
 				for (const field in rowObject) {
+					if (NODE_ENV === 'development') {
+						console.log('row:');
+						console.log(rowObject);
+					}
 					if ( rowObject[ field ] ) {
 						data[ field ] = (data[field] || []).concat( rowObject[ field ] );
 					}
