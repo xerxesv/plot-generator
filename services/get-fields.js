@@ -11,14 +11,21 @@ const getFields = function (req, res, next) {
       // fastMode: true,
       step: (row, parser) => {
         fields = row.data[0];
+        if (process.env.NODE_ENV === 'development') {
+            console.log('row:');
+            console.log( row );
+            console.log('rowObject (row.data[0]): ');
+            console.log(row.data[0]);          
+        }
         parser.abort();
       },
       complete: () => {
         // console.log('all done');
         // console.log(fields);
-        res.data = {
-          fields: fields
-        };
+        res.locals.fields = fields;
+        // res.data = {
+        //   fields: fields
+        // };
         next();
       },
       error: (err) => {

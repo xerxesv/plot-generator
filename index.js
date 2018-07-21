@@ -20,14 +20,18 @@ app
 
 // index route
 app.get('/', getFields, (req, res, next) => {
-	let data = res.data;
+	let data = {
+		fields:res.locals.fields
+	};
 	data.PUBLIC_URL = process.env.PUBLIC_URL;
 	res.render('index', data);
 });
 
 // embed route
 app.get('/embed', getFields, (req, res, next) => {
-	let data = res.data;
+	let data = {
+		fields: res.locals.fields
+	};
 	data.PUBLIC_URL = process.env.PUBLIC_URL;
 
 	res.render('embed', res.data, (err, html) => {
@@ -44,7 +48,9 @@ app.get('/embed', getFields, (req, res, next) => {
 
 
 app.get('/generatorHtml', getFields, (req, res, next) => {
-	let data = res.data;
+	let data = {
+		fields: res.locals.fields
+	};
 	data.PUBLIC_URL = process.env.PUBLIC_URL;
 
 	res.render('partials/generator', res.data, (err, html) => {
@@ -61,34 +67,46 @@ app.get('/generatorHtml', getFields, (req, res, next) => {
 
 // fields route
 app.get('/fields', getFields, (req, res, next) => {
-	res.send(res.data);
+	res.send( {fields:res.locals.fields} );
 });
 
 
 // generate route
-app.use('/generate', (req, res, next) => {
+app.use('/generate', getFields, (req, res, next) => {
 	const CSV_URL = process.env.CSV_URL;
+	const fields = res.locals.fields; // array of fields, e.g., :["SETTING","PROTAGONIST","CHARACTER DETAIL","INCITING INCIDENT"]
+
 	https.get( CSV_URL, (response) => {
 		let data = {};
 		Papa.parse( response, {
 			encoding:'utf8',
-			header:true,
+			// header:true,
 			// do not use fastMode
 			// fastMode: true
 			step: (row) => {
 				// no way to avoid going thru each row to get rid of empty cells
-				let rowObject = row.data && row.data[0];
-				for (const field in rowObject) {
-					if (NODE_ENV === 'development') {
-						console.log('row:');
-						console.log( row );
-						console.log('rowObject: ');
-						console.log(rowObject);
-					}
-					if ( rowObject[ field ] ) {
-						data[ field ] = (data[field] || []).concat( rowObject[ field ] );
-					}
+				let rowOfColumns = row.data && row.data[0];
+				if (NODE_ENV==='development') {
+					console.log('row object with metadata:');
+					console.log(row);
+					console.log('row of columns');
+					console.log( rowOfColumns )
 				}
+
+				rowOfColumns.forEach( (column, index) => {
+					data[ fields[index] ] = (data[ fields[index] ] || []).concat( column )
+				})
+				// for (const field in rowObject) {
+				// 	// if (NODE_ENV === 'development') {
+				// 	// 	console.log('row:');
+				// 	// 	console.log( row );
+				// 	// 	console.log('rowObject: ');
+				// 	// 	console.log(rowObject);
+				// 	// }
+				// 	if ( rowObject[ field ] ) {
+				// 		data[ field ] = (data[field] || []).concat( rowObject[ field ] );
+				// 	}
+				// }
 			},
 			complete: () => {
 				res.data = data;
