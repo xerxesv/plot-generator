@@ -1,4 +1,5 @@
 const https = require('https');
+const http = require('http');
 const Papa = require('papaparse');
 
 const getFields = function (req, res, next) {
@@ -12,10 +13,15 @@ const getFields = function (req, res, next) {
       step: (row, parser) => {
         fields = row.data[0].map( (field) => {return field.trim().replace(/[^a-zA-Z\d]/g, '_') } );
         if (process.env.NODE_ENV === 'development') {
-            console.log('row:');
-            console.log( row );
-            console.log('rowObject (row.data[0]): ');
-            console.log(row.data[0]);          
+            if (process.env.DEBUG) {
+
+            }
+            else {
+              console.log('row:');
+              console.log( row );
+              console.log('rowObject (row.data[0]): ');
+              console.log(row.data[0]);
+            }
         }
         parser.abort();
       },

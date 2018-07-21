@@ -5,6 +5,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const express = require('express');
 const cors = require('cors');
 const https = require('https');
+const http = require('http');
 const Papa = require('papaparse');
 
 const getFields = require('./services/get-fields');
@@ -91,10 +92,18 @@ app.use('/generate', getFields, (req, res, next) => {
 				// no way to avoid going thru each row to get rid of empty cells
 				let rowOfColumns = row.data && row.data[0];
 				if (NODE_ENV==='development') {
-					console.log('row object with metadata:');
-					console.log(row);
-					console.log('row of columns');
-					console.log( rowOfColumns )
+					if (process.env.DEBUG) {
+						if ( row.errors.length ) {
+							console.log('ERRORS IN THIS ROW!!!');
+							console.log( row );
+						}			
+					}
+					else {
+						console.log('row object with metadata:');
+						console.log(row);
+						console.log('row of columns');
+						console.log( rowOfColumns )
+					}
 				}
 
 				rowOfColumns.forEach( (column, index) => {
@@ -159,6 +168,13 @@ app.get('/generate/:type', (req, res, next) => {
 		}
 		res.send(res.data);
 	}
+});
+
+app.get('/generate/a/ll', (req, res, next) => {
+	res.data = res.locals.objectOfCategories;
+	res.data.fields = res.locals.fields;
+	let formatted_json = JSON.stringify( res.data, null, 4);
+	res.send( '<pre>'+formatted_json+'</pre>');
 });
 
 
