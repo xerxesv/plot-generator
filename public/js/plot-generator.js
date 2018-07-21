@@ -44,7 +44,7 @@ function requestAll (attempts) {
     $('.plotElement').each( function (index) {
       var $fieldText = $(this).find('.fieldText');
       var delayPerField = index * 200;
-      var fieldName = $fieldText.attr('id').replace(/_/g, ' ');
+      var fieldName = $fieldText.attr('id');
 
       $fieldText
         .velocity({ rotateX: 1080 }, {
@@ -86,7 +86,7 @@ function requestOne (fieldName, attempts) {
 	var maxAttempts = 2;
 	if (!fieldName) return;
 	// if (attempts >= maxAttempts) return;
-	const id = fieldName.replace(/\s/g, '_');
+	const id = fieldName;
 
   var xhr = new XMLHttpRequest();
 

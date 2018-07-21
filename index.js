@@ -75,15 +75,19 @@ app.get('/fields', getFields, (req, res, next) => {
 app.use('/generate', getFields, (req, res, next) => {
 	const CSV_URL = process.env.CSV_URL;
 	const fields = res.locals.fields; // array of fields, e.g., :["SETTING","PROTAGONIST","CHARACTER DETAIL","INCITING INCIDENT"]
-
+	let isTopRow = true;
 	https.get( CSV_URL, (response) => {
-		let data = {};
+		let objectOfCategories = {};
 		Papa.parse( response, {
 			encoding:'utf8',
 			// header:true,
 			// do not use fastMode
 			// fastMode: true
 			step: (row) => {
+				if (isTopRow) {
+					isTopRow = false; 
+					return;
+				}
 				// no way to avoid going thru each row to get rid of empty cells
 				let rowOfColumns = row.data && row.data[0];
 				if (NODE_ENV==='development') {
@@ -94,8 +98,11 @@ app.use('/generate', getFields, (req, res, next) => {
 				}
 
 				rowOfColumns.forEach( (column, index) => {
-					data[ fields[index] ] = (data[ fields[index] ] || []).concat( column )
-				})
+					if ( column && column.trim ) {
+						column = column.trim();
+						objectOfCategories[ fields[index] ] = (objectOfCategories[ fields[index] ] || []).concat( column )
+					}
+				});
 				// for (const field in rowObject) {
 				// 	// if (NODE_ENV === 'development') {
 				// 	// 	console.log('row:');
@@ -108,8 +115,8 @@ app.use('/generate', getFields, (req, res, next) => {
 				// 	}
 				// }
 			},
-			complete: () => {
-				res.data = data;
+			complete: (results, file) => {
+				res.locals.objectOfCategories = objectOfCategories;
 				next();
 			},
 			error: (err) => {
@@ -125,27 +132,30 @@ app.use('/generate', getFields, (req, res, next) => {
 })
 
 app.get('/generate', (req, res) => {
-	const fields = Object.keys(res.data);
+	const objectOfCategories = res.locals.objectOfCategories;
+	const fields = res.locals.fields;
 	res.data = fields.reduce( (accumulator, field) => {
-		let random = Math.floor( Math.random() * res.data[ field ].length );
-		accumulator[ field ] = res.data[field][ random ];
+		let random = Math.floor( Math.random() * objectOfCategories[ field ].length );
+		accumulator[ field ] = objectOfCategories[field][ random ];
 		return accumulator;
 	}, {})
 	res.send(res.data);
 });
 
 app.get('/generate/:type', (req, res, next) => {
-	const type = req.params.type.replace(/_/g, ' ');
+	const objectOfCategories = res.locals.objectOfCategories;
+	// do not really need to trim and replace, since the 'types' should be created from the transformed 'fields' in the csv file already
+	const type = req.params.type.trim().replace(/[^a-zA-Z\d]/g, '_');
 	let random = null;
-	if (!res.data[ type ]) {
+	if (!objectOfCategories[ type ]) {
 		let err = new Error('no such type');
 		err.httpStatusCode = 400;
 		next( err );
 	}
 	else {
-		random = Math.floor( Math.random() * res.data[ type ].length );
+		random = Math.floor( Math.random() * objectOfCategories[ type ].length );
 		res.data = {
-			[ type ] : res.data[ type ][ random ]
+			[ type ] : objectOfCategories[ type ][ random ]
 		}
 		res.send(res.data);
 	}
@@ -154,6 +164,8 @@ app.get('/generate/:type', (req, res, next) => {
 
 // custom error handler middleware whoa 
 app.use( (err, req, res, next) => {
+	console.log('ERRORRR!!');
+	console.log(err);
   if (res.headersSent) {
 		// here, pass to default express error handling mechanism
     return next(err)

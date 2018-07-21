@@ -11,9 +11,9 @@
     <% fields.forEach( function(fieldName) { %>
       <div class="plotElement" id="plotElement<%=fieldName.replace(/\s/g, '_')%>">
         <div class="fieldTitle">
-          <h3><%= fieldName %></h3>
+          <h3><%= fieldName.replace(/_/g, ' ') %></h3>
         </div>
-        <div onClick="requestOne('<%=fieldName%>')" id="<%=fieldName.replace(/\s/g, '_')%>" class="fieldText">
+        <div onClick="requestOne('<%=fieldName%>')" id="<%=fieldName%>" class="fieldText">
           <div class="inner placeholder"><span class="text">??</span></div>
         </div>
       </div>

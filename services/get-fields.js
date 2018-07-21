@@ -10,7 +10,7 @@ const getFields = function (req, res, next) {
       // do not use fastMode here
       // fastMode: true,
       step: (row, parser) => {
-        fields = row.data[0];
+        fields = row.data[0].map( (field) => {return field.trim().replace(/[^a-zA-Z\d]/g, '_') } );
         if (process.env.NODE_ENV === 'development') {
             console.log('row:');
             console.log( row );
