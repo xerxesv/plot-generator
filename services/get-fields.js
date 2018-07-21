@@ -7,7 +7,8 @@ const getFields = function (req, res, next) {
     let fields = [];
     Papa.parse( response, {
       encoding:'utf8',
-      fastMode: true,
+      // do not use fastMode here
+      // fastMode: true,
       step: (row, parser) => {
         fields = row.data[0];
         parser.abort();

@@ -81,6 +81,8 @@ app.use('/generate', (req, res, next) => {
 				for (const field in rowObject) {
 					if (NODE_ENV === 'development') {
 						console.log('row:');
+						console.log( row );
+						console.log('rowObject: ');
 						console.log(rowObject);
 					}
 					if ( rowObject[ field ] ) {
