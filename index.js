@@ -4,9 +4,10 @@ const PORT = process.env.PORT || 2000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const express = require('express');
 const cors = require('cors');
-const https = require('https');
-const http = require('http');
+// const https = require('https');
+// const http = require('http');
 const Papa = require('papaparse');
+const request = require('request');
 
 const getFields = require('./services/get-fields');
 
@@ -77,9 +78,11 @@ app.use('/generate', getFields, (req, res, next) => {
 	const CSV_URL = process.env.CSV_URL;
 	const fields = res.locals.fields; // array of fields, e.g., :["SETTING","PROTAGONIST","CHARACTER DETAIL","INCITING INCIDENT"]
 	let isTopRow = true;
-	https.get( CSV_URL, (response) => {
-		let objectOfCategories = {};
-		Papa.parse( response, {
+	let objectOfCategories = {};
+	request( CSV_URL, (error, response, body) => {
+		// console.log('The decoded data is: ');
+		// console.log(body);
+		Papa.parse( body, {
 			encoding:'utf8',
 			// header:true,
 			// do not use fastMode
@@ -132,12 +135,73 @@ app.use('/generate', getFields, (req, res, next) => {
 				console.log('parser had an error');
 				console.log(err);
 				next(err)
-			}
+			}			
 		})
 	})
 	.on('error', (err) => {
-		next(err);
-	})
+	next(err);
+	});		
+	// https.get( CSV_URL, (response) => {
+	// 	let objectOfCategories = {};
+	// 	Papa.parse( response, {
+	// 		encoding:'utf8',
+	// 		// header:true,
+	// 		// do not use fastMode
+	// 		// fastMode: true
+	// 		step: (row) => {
+	// 			if (isTopRow) {
+	// 				isTopRow = false; 
+	// 				return;
+	// 			}
+	// 			// no way to avoid going thru each row to get rid of empty cells
+	// 			let rowOfColumns = row.data && row.data[0];
+	// 			if (NODE_ENV==='development') {
+	// 				if (process.env.DEBUG) {
+	// 					if ( row.errors.length ) {
+	// 						console.log('ERRORS IN THIS ROW!!!');
+	// 						console.log( row );
+	// 					}			
+	// 				}
+	// 				else {
+	// 					console.log('row object with metadata:');
+	// 					console.log(row);
+	// 					console.log('row of columns');
+	// 					console.log( rowOfColumns )
+	// 				}
+	// 			}
+
+	// 			rowOfColumns.forEach( (column, index) => {
+	// 				if ( column && column.trim ) {
+	// 					column = column.trim();
+	// 					objectOfCategories[ fields[index] ] = (objectOfCategories[ fields[index] ] || []).concat( column )
+	// 				}
+	// 			});
+	// 			// for (const field in rowObject) {
+	// 			// 	// if (NODE_ENV === 'development') {
+	// 			// 	// 	console.log('row:');
+	// 			// 	// 	console.log( row );
+	// 			// 	// 	console.log('rowObject: ');
+	// 			// 	// 	console.log(rowObject);
+	// 			// 	// }
+	// 			// 	if ( rowObject[ field ] ) {
+	// 			// 		data[ field ] = (data[field] || []).concat( rowObject[ field ] );
+	// 			// 	}
+	// 			// }
+	// 		},
+	// 		complete: (results, file) => {
+	// 			res.locals.objectOfCategories = objectOfCategories;
+	// 			next();
+	// 		},
+	// 		error: (err) => {
+	// 			console.log('parser had an error');
+	// 			console.log(err);
+	// 			next(err)
+	// 		}
+	// 	})
+	// })
+	// .on('error', (err) => {
+	// 	next(err);
+	// })
 })
 
 app.get('/generate', (req, res) => {
@@ -171,6 +235,8 @@ app.get('/generate/:type', (req, res, next) => {
 });
 
 app.get('/generate/a/ll', (req, res, next) => {
+	if (!process.env.DEBUG) res.send('no');
+	
 	res.data = res.locals.objectOfCategories;
 	res.data.fields = res.locals.fields;
 	let formatted_json = JSON.stringify( res.data, null, 4);
